@@ -6,6 +6,7 @@ import { TimelineModule } from 'primeng/timeline';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
+import { LogicComponent } from './vistas/red/logic/logic.component';
 interface EventItem {
   status?: string;
   date?: string;
@@ -24,7 +25,8 @@ interface EventItem {
     TimelineModule,
     ButtonModule,
     CardModule,
-    CommonModule
+    CommonModule,
+    LogicComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
