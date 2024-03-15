@@ -13,12 +13,12 @@ export class LogicComponent {
   weights: number[][] = [];
   thresholds: number[] = [];
 
-  weights2: number[][] = [
+  /*   weights2: number[][] = [
     [0.7, 1],
     [0.5, 0.5],
     [0.2, 0.3],
   ];
-  thresholds2: number[] = [0, -1];
+  thresholds2: number[] = [0, -1]; */
 
   //Datos de entrenamiento
   /*   inputs: number[][] = [
@@ -43,7 +43,7 @@ export class LogicComponent {
         parseFloat((Math.random() * 2 - 1).toFixed(1))
       )
     );
-    this.thresholds = Array.from({ length: 2 }, () =>
+    this.thresholds = Array.from({ length: colums }, () =>
       parseFloat((Math.random() * 2 - 1).toFixed(1))
     );
   }
@@ -58,9 +58,9 @@ export class LogicComponent {
       let value = 0;
       let value2 = 0;
       for (let j = 0; j < inputslength; j++) {
-        value += inputs[j] * this.weights2[j][i];
+        value += inputs[j] * this.weights[j][i];
       }
-      value2 = value - this.thresholds2[i];
+      value2 = value - this.thresholds[i];
       value2 = parseFloat(value2.toFixed(1));
       result[i] = value2;
     }
@@ -103,19 +103,19 @@ export class LogicComponent {
     inputs: number[],
     learningRat: number
   ) {
-    for (let i = 0; i < this.weights2.length; i++) {
-      for (let j = 0; j < this.weights2[i].length; j++) {
-        this.weights2[i][j] = parseFloat(
+    for (let i = 0; i < this.weights.length; i++) {
+      for (let j = 0; j < this.weights[i].length; j++) {
+        this.weights[i][j] = parseFloat(
           (
-            this.weights2[i][j] +
+            this.weights[i][j] +
             learningRat * lienalerror[j] * inputs[i]
           ).toFixed(1)
         );
       }
     }
-    for (let i = 0; i < this.thresholds2.length; i++) {
-      this.thresholds2[i] = parseFloat(
-        (this.thresholds2[i] + learningRat * lienalerror[i] * 1).toFixed(1)
+    for (let i = 0; i < this.thresholds.length; i++) {
+      this.thresholds[i] = parseFloat(
+        (this.thresholds[i] + learningRat * lienalerror[i] * 1).toFixed(1)
       );
     }
   }
@@ -164,5 +164,8 @@ export class LogicComponent {
       }
       this.eit.push(this.calculateIterationError(patternerror));
     }
+    console.log(this.weights);
+    console.log(this.thresholds);
+    console.log(this.eit);
   }
 }
