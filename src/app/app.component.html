@@ -175,7 +175,6 @@
         <div class="center-xs">
           <div class="box">
           <p>{{event.title}}</p>
-        <app-config></app-config>
           
           </div>
         </div>
@@ -189,7 +188,7 @@
 
   <div class="row">
     <div class="col-xs-12">
-      <app-config></app-config>
+      <app-config [inputParameters]="inputParameters"></app-config>
       <!-- <p-fileUpload #buttonUp mode="basic" chooseLabel="Choose" [customUpload]="true" [auto]="true"   (uploadHandler)="onFileChange($event, buttonUp)"></p-fileUpload> -->
       <app-button-upload-data (dataProcessed)="handleData($event)"></app-button-upload-data>
       <app-logic></app-logic>
