@@ -270,7 +270,15 @@
     <mat-divider></mat-divider>
     <div class="row padding-16">
       <div class="col-xs">
-    <app-config [inputParameters]="inputParameters" [trainingParameters]="!trainingParametersForm.invalid ? trainingParametersForm.value : null"></app-config>
+    <app-config [inputParameters]="inputParameters" [trainingParameters]="!trainingParametersForm.invalid ? trainingParametersForm.value : null" (dataTraining)="handleDataTraining($event)"></app-config>
+      
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="row padding-16">
+      <div class="col-xs">
+      <app-compare-table [inputParameters]="inputParameters" [trainingParameters]="dataTraining"></app-compare-table>
+    <!-- <app-config [inputParameters]="inputParameters" [trainingParameters]="!trainingParametersForm.invalid ? trainingParametersForm.value : null"></app-config> -->
       
       </div>
     </div>

@@ -1,0 +1,26 @@
+<div class="col-xs">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <!-- Position Column -->
+   
+  
+    <!-- Name Column -->
+   
+    
+    @for (nameColumn of displayedColumns; track nameColumn) {
+      <ng-container  matColumnDef="{{nameColumn}}">
+        <th mat-header-cell *matHeaderCellDef > {{findColumName(nameColumn)}} </th>
+        <td mat-cell *matCellDef="let element"> {{element[nameColumn]}} </td>
+      </ng-container>
+    } @empty {
+      Empty list of users
+    }
+  
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

@@ -14,6 +14,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import { FormBuilder, Validators,ReactiveFormsModule, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import { NeuronaComponent } from './vistas/red/neurona/neurona.component';
+import { CompareTableComponent } from './vistas/simulation/compare-table/compare-table.component';
 
 interface EventItem {
   status?: string;
@@ -48,7 +49,8 @@ interface Step {
     MatDividerModule,
     ReactiveFormsModule,
     MatInputModule,
-    NeuronaComponent
+    NeuronaComponent,
+    CompareTableComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -102,6 +104,12 @@ export class AppComponent {
   
   handleData(data:any){
     this.inputParameters  = data;
+    console.log("parametros de entrada => ", this.inputParameters);
+  }
+  
+  dataTraining:any = null;
+  handleDataTraining(data:any){
+    this.dataTraining  = data;
     console.log("parametros de entrada => ", this.inputParameters);
   }
   

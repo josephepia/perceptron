@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { select, selectAll } from "d3";
@@ -23,6 +23,7 @@ import path from "path";
 export class ConfigComponent implements OnChanges {
   @Input() inputParameters: any;
   @Input() trainingParameters: any;
+  @Output() dataTraining = new EventEmitter<any>();
 
 
   ngOnChanges() {
@@ -176,9 +177,7 @@ export class ConfigComponent implements OnChanges {
     const finalThresholdsStrings = this.finalThresholds.map(value => String(value));
     console.log("pesos a guardar ",finalWeightsStrings);
     console.log("umbrales a guardar ",finalThresholdsStrings);
-    const finalThresholdsCSV = Papa.unparse(finalThresholdsStrings,{header: false, delimiter: ";", newline:"\n",complete: (results, file)=>{
-      console.log("Parsing complete:", results, file);
-    }});
+    const finalThresholdsCSV = Papa.unparse(finalThresholdsStrings,{header: false});
     const finalWeightsCSV = Papa.unparse(finalWeightsStrings);
 
     // Definir la ruta completa del archivo CSV
@@ -365,11 +364,20 @@ export class ConfigComponent implements OnChanges {
 
       } while (errIteracion > this.maximumError && numInteraciones > 0);
 
+
       this.chart.data.labels = Object.keys(this.totalIterationError);
       this.chart.data.datasets[0].data = this.totalIterationError;
       this.chart.data.datasets[1].data = Array(this.totalIterationError.length).fill(this.maximumError);
       this.chart?.update();
 
+      if(errIteracion <= this.maximumError){
+        this.dataTraining.emit({
+          finalThresholds: this.finalThresholds,
+          finalWeights: this.finalWeights
+        })
+      }else{
+        this.dataTraining.emit(null);
+      }
       // setTimeout(()=>{
       //   this.chart.data.labels = Object.keys(this.totalIterationError);
       //   this.chart.data.datasets[0].data = this.totalIterationError;
