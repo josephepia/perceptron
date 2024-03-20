@@ -1,14 +1,21 @@
-<p-card header="Advanced Card" subheader="Card Subheader" >
-  <ng-template pTemplate="header">
-      <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
-  </ng-template>
+
+<div class="row">
+  <canvas  id="MyChart" >{{ chart }}</canvas>
+
+</div>
+<div class="row around-xs">
+  <div class="col-xs">
+    <p-button (click)="trainingNetwork()" label="Repetir entrenamiento" icon="pi pi-times" styleClass="p-button-secondary" [style]="{ 'margin-left': '.5em' }"></p-button>
   
-    <div class="chart-container">
-        <canvas  id="MyChart" >{{ chart }}</canvas>
+  </div>
+  <div class="col-xs padding-vertcal-16">
+    <p-button (click)="save()" label="Guardar umbrales y pesos" icon="pi pi-check"></p-button>
+  
   </div>
   
-  <ng-template pTemplate="footer">
-      <p-button label="Save" icon="pi pi-check"></p-button>
-      <p-button (click)="entrenarRed()" label="Repetir entrenamiento" icon="pi pi-times" styleClass="p-button-secondary" [style]="{ 'margin-left': '.5em' }"></p-button>
-  </ng-template>
-</p-card>
+</div> 
+  
+
+      
+
+

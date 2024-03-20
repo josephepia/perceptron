@@ -15,12 +15,14 @@ import * as Papa from 'papaparse';
 export class ButtonUploadDataComponent {
   @Output() dataProcessed = new EventEmitter<any>();
 
+  fileName!: string;
   onFileChange(event: any, buttonUp: any) {
     buttonUp.clear();
     const file = event.files[0];
-
+    this.fileName = file.name;
     Papa.parse(file, {
       complete: (result) => {
+      
         const data = this.processCSVData(result.data);
         this.dataProcessed.emit(data);
       },
@@ -33,7 +35,7 @@ export class ButtonUploadDataComponent {
 
     const titles = Object.keys(rows[0]);
     let changeIndex = this.findChangeIndex(titles);
-
+    
     const numInputs = changeIndex;
     const numOutputs = titles.length - changeIndex;
     const numPatterns = rows.length;
@@ -46,6 +48,7 @@ export class ButtonUploadDataComponent {
       numOutputs,
       numPatterns,
       matrixData,
+      fileName: this.fileName
     };
   }
 

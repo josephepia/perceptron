@@ -168,35 +168,115 @@
   }
 </style>
 
-<div>
-  <p-timeline [value]="events">
-    <ng-template pTemplate="content" let-event>
-      <div class="row">
-        <div class="center-xs">
-          <div class="box">
-          <p>{{event.title}}</p>
-          
-          </div>
-        </div>
-      
+<div class="row padding-16 margin-16 center-xs">
+  
+  <mat-card class="col-xs-12 col-sm-8 col-md-8 col-lg-8 shadow2 borde-radio-10">
+    <mat-card-header>
+      <mat-card-title><h2>Actividad</h2></mat-card-title>
+      <mat-card-subtitle ><h2 >Entrenamiendo de una red neuronal con el algoritmo de aprendizaje supervisado de clasificadores binarios perceptron</h2></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="padding1-16">
+      <mat-divider></mat-divider>
+    
+    <div class="row padding-16 middle-xs">
+      <div class="col-xs">
+        <p>{{inputParameters.fileName}}</p>
       </div>
-    </ng-template>
-</p-timeline>
+      <div class="col-xs">
+        <p>Cargar archivo de datos</p>
+        <app-button-upload-data (dataProcessed)="handleData($event)"></app-button-upload-data>
+        
+      </div>
 
-</div>  
-<main class="row padding">
-
-  <div class="row">
-    <div class="col-xs-12">
-      <app-config [inputParameters]="inputParameters"></app-config>
-      <!-- <p-fileUpload #buttonUp mode="basic" chooseLabel="Choose" [customUpload]="true" [auto]="true"   (uploadHandler)="onFileChange($event, buttonUp)"></p-fileUpload> -->
-      <app-button-upload-data (dataProcessed)="handleData($event)"></app-button-upload-data>
-      <app-logic></app-logic>
+      
     </div>
+    <mat-divider></mat-divider>
+    <div class="row padding-16 padding-bottom-0">
+    <div class="col-xs col-xs center-xs">
+      <mat-card-title>Parametros de entrada</mat-card-title>
+    
+    </div>
+    <div class="col-xs middle-xs padding-16">
+    
+    
+      
+        
+      <div class="row">
+      <div class="col-xs-4">
+        <mat-card-subtitle>Entradas</mat-card-subtitle>
+        <mat-card-subtitle class="padding-start-16">{{inputParameters?.numInputs}}</mat-card-subtitle>
+      </div>
+      <div class="col-xs-4">
+        <mat-card-subtitle>Salidas</mat-card-subtitle>
+        <mat-card-subtitle class="padding-start-16">{{inputParameters.numOutputs}}</mat-card-subtitle>
+      </div>
+      <div class="col-xs-4">
+        <mat-card-subtitle>Patrones</mat-card-subtitle>
+        <mat-card-subtitle class="padding-start-16">{{inputParameters.numPatterns}}</mat-card-subtitle>
+      </div>
+
+        
+      </div>
+        
+    
+   
+  
+  
   </div>
 
-  
-</main>
+    </div>
+    <div class="row">
+      
+      <app-neurona [inputParameters]="inputParameters" ></app-neurona>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="row padding-16">
+      <div class="col-xs">
+      
+        <mat-card-title>Configurar parametros de entrenamiento</mat-card-title>
 
+          <form [formGroup]="trainingParametersForm" class="row">
+          <div class="row">
+            <div class="col-xs">
+              <mat-form-field>
+                <mat-label>Número de iteraciones</mat-label>
+                <input matInput formControlName="numIterations">
+              </mat-form-field>
+            </div>
+            <div class="col-xs">
+              <mat-form-field>
+                <mat-label>Rata de aprendizaje</mat-label>
+                <input matInput formControlName="learningRat">
+              </mat-form-field>
+            </div>
+            <div class="col-xs">
+              <mat-form-field>
+                <mat-label>Error maximo permitido</mat-label>
+                <input matInput formControlName="maxThreshold">
+              </mat-form-field>
+            </div>
+          </div>
+          
+            
+            
+          <div class="row col-xs-12 end-xs">
+            <!-- <p-button label="Configurar" type="submit"></p-button> -->
+          </div>
+
+          </form>
+          
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="row padding-16">
+      <div class="col-xs">
+    <app-config [inputParameters]="inputParameters" [trainingParameters]="!trainingParametersForm.invalid ? trainingParametersForm.value : null"></app-config>
+      
+      </div>
+    </div>
+    </mat-card-content>
+  </mat-card>
+
+</div>
 
 <router-outlet />
