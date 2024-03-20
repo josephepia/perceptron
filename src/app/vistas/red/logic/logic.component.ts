@@ -142,7 +142,7 @@ export class LogicComponent {
   ) {
     this.defineWeightsThresholds(inputslength, outputslength);
     while (
-      this.eit[length - 1] >= maximumAllowableError ||
+      this.eit[this.eit.length - 1] > maximumAllowableError &&
       this.eit.length < iterations
     ) {
       let patternerror: number[] = [];
