@@ -1,1 +1,9 @@
-<p-fileUpload #buttonUp mode="basic" chooseLabel="Seleccionar archivo" [customUpload]="true" [auto]="true"   (uploadHandler)="onFileChange($event, buttonUp)"></p-fileUpload>
+<div class="row center-xs">
+  <button [disabled]="!inputParametters && !isUpload" mat-button mat-flat-button color="primary" (click)="onFileChange($event, buttonHidden)"><ng-content></ng-content></button>
+  <input #buttonHidden hidden (change)="upLoadCSV($event)" #fileInput type="file" id="file">  
+</div>
+<div class="row center-xs">
+  <p>{{fileName}}</p>
+</div>
+
+

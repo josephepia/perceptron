@@ -8,6 +8,7 @@ import _ from "lodash";
 import Papa from "papaparse";
 import fs from "fs";
 import path from "path";
+import { ButtonUploadDataComponent } from '../button-upload-data/button-upload-data.component';
 
 @Component({
   selector: 'app-config',
@@ -15,7 +16,8 @@ import path from "path";
   imports: [
     CardModule,
     ButtonModule,
-    ChartModule
+    ChartModule,
+    ButtonUploadDataComponent
   ],
   templateUrl: './config.component.html',
   styleUrl: './config.component.scss'
@@ -23,7 +25,7 @@ import path from "path";
 export class ConfigComponent implements OnChanges {
   @Input() inputParameters: any;
   @Input() trainingParameters: any;
-  @Output() dataTraining = new EventEmitter<any>();
+  dataTraining:any|null = null;
 
 
   ngOnChanges() {
@@ -196,7 +198,7 @@ export class ConfigComponent implements OnChanges {
     if (this.chart && this.inputParameters && this.trainingParameters) {
       this.chart.reset();
 
-
+      this.dataTraining = null;
       //establecer matriz de pesos al azar 
       
 
@@ -371,12 +373,13 @@ export class ConfigComponent implements OnChanges {
       this.chart?.update();
 
       if(errIteracion <= this.maximumError){
-        this.dataTraining.emit({
+        this.dataTraining = {
           finalThresholds: this.finalThresholds,
-          finalWeights: this.finalWeights
-        })
+          finalWeights: this.finalWeights,
+          fileName: this.inputParameters.fileName
+        };
       }else{
-        this.dataTraining.emit(null);
+        this.dataTraining = null;
       }
       // setTimeout(()=>{
       //   this.chart.data.labels = Object.keys(this.totalIterationError);

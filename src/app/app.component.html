@@ -184,7 +184,7 @@
       </div>
       <div class="col-xs">
         <p>Cargar archivo de datos</p>
-        <app-button-upload-data (dataProcessed)="handleData($event)"></app-button-upload-data>
+        <app-button-upload-data (dataProcessed)="handleData($event)">Seleccione un dataset</app-button-upload-data>
         
       </div>
 
@@ -277,7 +277,12 @@
     <mat-divider></mat-divider>
     <div class="row padding-16">
       <div class="col-xs">
-      <app-compare-table [inputParameters]="inputParameters" [trainingParameters]="dataTraining"></app-compare-table>
+      <div class="row center-xs">
+        <mat-card-title>Etapa de simulación</mat-card-title>
+      
+      </div>
+      
+      <app-compare-table></app-compare-table>
     <!-- <app-config [inputParameters]="inputParameters" [trainingParameters]="!trainingParametersForm.invalid ? trainingParametersForm.value : null"></app-config> -->
       
       </div>
